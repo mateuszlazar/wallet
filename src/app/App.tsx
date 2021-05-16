@@ -1,6 +1,6 @@
 import * as React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import * as routes from "./routes";
+import { Navigation } from "../components/Navigation";
 import { firebase } from "../firebase";
 import { withAuthentication } from "../firebase/withAuthentication";
 import { Account } from "../pages/Account";
@@ -9,19 +9,19 @@ import { Landing } from "../pages/Landing";
 import { PasswordForget } from "../pages/PasswordForget";
 import { SignIn } from "../pages/SignIn";
 import { SignUp } from "../pages/SignUp";
-import { Navigation } from "../components/Navigation";
+import * as routes from "./routes";
 
 class AppComponent extends React.Component {
   constructor(props: any) {
     super(props);
 
     this.state = {
-      authUser: null
+      authUser: null,
     };
   }
 
   public componentDidMount() {
-    firebase.auth.onAuthStateChanged(authUser => {
+    firebase.auth.onAuthStateChanged((authUser) => {
       authUser
         ? this.setState(() => ({ authUser }))
         : this.setState(() => ({ authUser: null }));

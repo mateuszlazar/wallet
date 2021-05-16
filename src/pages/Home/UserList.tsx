@@ -1,10 +1,10 @@
 import * as React from "react";
 
-interface InterfaceProps {
+interface IProps {
   users?: any;
 }
 
-export class UserList extends React.Component<InterfaceProps, {}> {
+export class UserList extends React.Component<IProps, {}> {
   constructor(props: any) {
     super(props);
   }
@@ -18,7 +18,7 @@ export class UserList extends React.Component<InterfaceProps, {}> {
         <p>(Saved on Sign Up in Firebase Database)</p>
 
         <ul>
-          {Object.keys(users).map(key => {
+          {Object.keys(users).map((key) => {
             return <li key={key}>{users[key].username}</li>;
           })}
         </ul>

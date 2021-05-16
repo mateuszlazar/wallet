@@ -1,8 +1,8 @@
 export const config = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  databaseURL: "YOUR_DATABASE_URL",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  projectId: "YOUR PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET"
+  apiKey: "AIzaSyCgflhmXphI6z4lSfjBOCod8_pFvpHQluA",
+  appId: "1:925915693424:web:14b13995430b3561ba4fb5",
+  authDomain: "wallet-2021.firebaseapp.com",
+  messagingSenderId: "925915693424",
+  projectId: "wallet-2021",
+  storageBucket: "wallet-2021.appspot.com",
 };

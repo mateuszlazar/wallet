@@ -1,27 +1,24 @@
 import * as React from "react";
 import { auth } from "../../firebase";
 
-interface InterfaceProps {
+interface IProps {
   error?: any;
   history?: any;
   passwordOne?: string;
   passwordTwo?: string;
 }
 
-interface InterfaceState {
+interface IState {
   error?: any;
   passwordOne?: string;
   passwordTwo?: string;
 }
 
-export class PasswordChangeForm extends React.Component<
-  InterfaceProps,
-  InterfaceState
-> {
+export class PasswordChangeForm extends React.Component<IProps, IState> {
   private static INITIAL_STATE = {
     error: null,
     passwordOne: "",
-    passwordTwo: ""
+    passwordTwo: "",
   };
 
   private static propKey(propertyName: string, value: string): object {
@@ -41,7 +38,7 @@ export class PasswordChangeForm extends React.Component<
       .then(() => {
         this.setState(() => ({ ...PasswordChangeForm.INITIAL_STATE }));
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState(PasswordChangeForm.propKey("error", error));
       });
 
@@ -54,16 +51,16 @@ export class PasswordChangeForm extends React.Component<
     const isInvalid = passwordOne !== passwordTwo || passwordOne === "";
 
     return (
-      <form onSubmit={event => this.onSubmit(event)}>
+      <form onSubmit={(event) => this.onSubmit(event)}>
         <input
           value={passwordOne}
-          onChange={event => this.setStateWithEvent(event, "passwordOne")}
+          onChange={(event) => this.setStateWithEvent(event, "passwordOne")}
           type="password"
           placeholder="New Password"
         />
         <input
           value={passwordTwo}
-          onChange={event => this.setStateWithEvent(event, "passwordTwo")}
+          onChange={(event) => this.setStateWithEvent(event, "passwordTwo")}
           type="password"
           placeholder="Confirm New Password"
         />

@@ -4,14 +4,14 @@ import * as routes from "../app/routes";
 import { firebase } from "../firebase";
 import { AuthUserContext } from "./AuthUserContext";
 
-interface InterfaceProps {
+interface IProps {
   history?: any;
 }
 
 export const withAuthorization = (condition: any) => (Component: any) => {
-  class WithAuthorization extends React.Component<InterfaceProps, {}> {
+  class WithAuthorization extends React.Component<IProps, {}> {
     public componentDidMount() {
-      firebase.auth.onAuthStateChanged(authUser => {
+      firebase.auth.onAuthStateChanged((authUser) => {
         if (!condition(authUser)) {
           this.props.history.push(routes.SIGN_IN);
         }
@@ -21,7 +21,7 @@ export const withAuthorization = (condition: any) => (Component: any) => {
     public render() {
       return (
         <AuthUserContext.Consumer>
-          {authUser => (authUser ? <Component /> : null)}
+          {(authUser) => (authUser ? <Component /> : null)}
         </AuthUserContext.Consumer>
       );
     }

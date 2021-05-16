@@ -2,34 +2,31 @@ import * as React from "react";
 import * as routes from "../../app/routes";
 import { auth } from "../../firebase";
 
-interface InterfaceProps {
+interface IProps {
   email?: string;
   error?: any;
   history?: any;
   password?: string;
 }
 
-interface InterfaceState {
+interface IState {
   email: string;
   error: any;
   password: string;
 }
 
-export class SignInForm extends React.Component<
-  InterfaceProps,
-  InterfaceState
-> {
+export class SignInForm extends React.Component<IProps, IState> {
   private static INITIAL_STATE = {
     email: "",
     error: null,
-    password: ""
+    password: "",
   };
 
   private static propKey(propertyName: string, value: any): object {
     return { [propertyName]: value };
   }
 
-  constructor(props: InterfaceProps) {
+  constructor(props: IProps) {
     super(props);
 
     this.state = { ...SignInForm.INITIAL_STATE };
@@ -46,7 +43,7 @@ export class SignInForm extends React.Component<
         this.setState(() => ({ ...SignInForm.INITIAL_STATE }));
         history.push(routes.HOME);
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState(SignInForm.propKey("error", error));
       });
 
@@ -59,16 +56,16 @@ export class SignInForm extends React.Component<
     const isInvalid = password === "" || email === "";
 
     return (
-      <form onSubmit={event => this.onSubmit(event)}>
+      <form onSubmit={(event) => this.onSubmit(event)}>
         <input
           value={email}
-          onChange={event => this.setStateWithEvent(event, "email")}
+          onChange={(event) => this.setStateWithEvent(event, "email")}
           type="text"
           placeholder="Email Address"
         />
         <input
           value={password}
-          onChange={event => this.setStateWithEvent(event, "password")}
+          onChange={(event) => this.setStateWithEvent(event, "password")}
           type="password"
           placeholder="Password"
         />

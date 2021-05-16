@@ -1,36 +1,63 @@
 import * as React from "react";
-import { db } from "../../firebase";
+import {
+  Button,
+  Container,
+  Select,
+  MenuItem,
+  TextField,
+} from "@material-ui/core";
 import { withAuthorization } from "../../firebase/withAuthorization";
-import { UserList } from "./UserList";
+import { search } from "../../services/stock";
+import { Autocomplete } from "@material-ui/lab";
+import Asynchronous from "./Search";
 
-class HomeComponent extends React.Component {
-  constructor(props: any) {
-    super(props);
+const HomeComponent: React.FC<any> = () => {
+  const [value, setValue] = React.useState("");
+  const [options, setOptions] = React.useState<any[]>([]);
 
-    this.state = {
-      users: null
-    };
-  }
+  const fetchData = async () => {
+    const { data } = await search(value);
 
-  public componentDidMount() {
-    db.onceGetUsers().then(snapshot =>
-      this.setState(() => ({ users: snapshot.val() }))
-    );
-  }
+    setOptions(data.bestMatches);
+  };
 
-  public render() {
-    const { users }: any = this.state;
-
-    return (
-      <div>
-        <h2>Home Page</h2>
-        <p>The Home Page is accessible by every signed in user.</p>
-
-        {!!users && <UserList users={users} />}
-      </div>
-    );
-  }
-}
+  return (
+    <Container maxWidth={"lg"}>
+      <Asynchronous />
+      ___
+      <Button variant={"contained"} color="primary" onClick={fetchData}>
+        Default
+      </Button>
+      <TextField id="standard-basic" label="Standard" />
+      <Select
+        labelId="demo-simple-select-label"
+        id="demo-simple-select"
+        // value={age}
+        // @ts-ignore
+        onChange={console.log}
+      >
+        {options.map((option: any) => (
+          <MenuItem value={option["1. symbol"]}>{option["2. name"]}</MenuItem>
+        ))}
+      </Select>
+      <Autocomplete
+        id="combo-box-demo"
+        options={options}
+        getOptionLabel={(option) =>
+          `${option["2. name"]} (${option["1. symbol"]})}`
+        }
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label="Combo box"
+            variant="outlined"
+            onChange={(e) => setValue(e.target.value)}
+          />
+        )}
+      />
+    </Container>
+  );
+};
 
 const authCondition = (authUser: any) => !!authUser;
 

@@ -2,7 +2,7 @@ import * as React from "react";
 import * as routes from "../../app/routes";
 import { auth, db } from "../../firebase";
 
-interface InterfaceProps {
+interface IProps {
   email?: string;
   error?: any;
   history?: any;
@@ -11,7 +11,7 @@ interface InterfaceProps {
   username?: string;
 }
 
-interface InterfaceState {
+interface IState {
   email: string;
   error: any;
   passwordOne: string;
@@ -19,23 +19,20 @@ interface InterfaceState {
   username: string;
 }
 
-export class SignUpForm extends React.Component<
-  InterfaceProps,
-  InterfaceState
-> {
+export class SignUpForm extends React.Component<IProps, IState> {
   private static INITIAL_STATE = {
     email: "",
     error: null,
     passwordOne: "",
     passwordTwo: "",
-    username: ""
+    username: "",
   };
 
   private static propKey(propertyName: string, value: any): object {
     return { [propertyName]: value };
   }
 
-  constructor(props: InterfaceProps) {
+  constructor(props: IProps) {
     super(props);
     this.state = { ...SignUpForm.INITIAL_STATE };
   }
@@ -49,19 +46,17 @@ export class SignUpForm extends React.Component<
     auth
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then((authUser: any) => {
-
         // Create a user in your own accessible Firebase Database too
         db.doCreateUser(authUser.user.uid, username, email)
           .then(() => {
-
             this.setState(() => ({ ...SignUpForm.INITIAL_STATE }));
             history.push(routes.HOME);
           })
-          .catch(error => {
+          .catch((error) => {
             this.setState(SignUpForm.propKey("error", error));
           });
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState(SignUpForm.propKey("error", error));
       });
   }
@@ -79,25 +74,25 @@ export class SignUpForm extends React.Component<
       <form onSubmit={(event) => this.onSubmit(event)}>
         <input
           value={username}
-          onChange={event => this.setStateWithEvent(event, "username")}
+          onChange={(event) => this.setStateWithEvent(event, "username")}
           type="text"
           placeholder="Full Name"
         />
         <input
           value={email}
-          onChange={event => this.setStateWithEvent(event, "email")}
+          onChange={(event) => this.setStateWithEvent(event, "email")}
           type="text"
           placeholder="Email Address"
         />
         <input
           value={passwordOne}
-          onChange={event => this.setStateWithEvent(event, "passwordOne")}
+          onChange={(event) => this.setStateWithEvent(event, "passwordOne")}
           type="password"
           placeholder="Password"
         />
         <input
           value={passwordTwo}
-          onChange={event => this.setStateWithEvent(event, "passwordTwo")}
+          onChange={(event) => this.setStateWithEvent(event, "passwordTwo")}
           type="password"
           placeholder="Confirm Password"
         />

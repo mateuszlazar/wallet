@@ -1,4 +1,4 @@
 dist
 node_modules
 .vscode
-# src/firebase/config.ts
+src/firebase/config.ts
