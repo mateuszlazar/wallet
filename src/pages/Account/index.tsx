@@ -1,21 +1,14 @@
 import * as React from "react";
-import { AuthUserContext } from "../../firebase/AuthUserContext";
-import { withAuthorization } from "../../firebase/withAuthorization";
-import { PasswordForgetForm } from "../PasswordForget/PasswordForgetForm";
-import { PasswordChangeForm } from "./PasswordChangeForm";
+import { AuthContext, withAuthorization } from "src/components/AuthContext";
 
-export const AccountComponent = () => (
-  <AuthUserContext.Consumer>
-    {authUser => (
+const Account = () => (
+  <AuthContext.Consumer>
+    {(user: any) => (
       <div>
-        <h1>Account: {(authUser as any).email}</h1>
-        <PasswordForgetForm />
-        <PasswordChangeForm />
+        <h1>Account: {user.email}</h1>
       </div>
     )}
-  </AuthUserContext.Consumer>
+  </AuthContext.Consumer>
 );
 
-const authCondition = (authUser: any) => !!authUser;
-
-export const Account = withAuthorization(authCondition)(AccountComponent);
+export default withAuthorization(Account);

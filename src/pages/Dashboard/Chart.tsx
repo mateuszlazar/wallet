@@ -1,7 +1,6 @@
 import { Container } from "@material-ui/core";
 import * as React from "react";
 import { db } from "../../firebase";
-import { withAuthorization } from "../../firebase/withAuthorization";
 import { UserList } from "./UserList";
 import {
   AreaChart,
@@ -121,6 +120,4 @@ class HomeComponent extends React.Component {
   }
 }
 
-const authCondition = (authUser: any) => !!authUser;
-
-export const Home = withAuthorization(authCondition)(HomeComponent);
+export default HomeComponent;

@@ -1,15 +1,10 @@
 import * as React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { Navigation } from "../components/Navigation";
+import { Layout } from "src/components/Layout";
 import { firebase } from "../firebase";
-import { withAuthentication } from "../firebase/withAuthentication";
-import { Account } from "../pages/Account";
-import { Home } from "../pages/Home";
-import { Landing } from "../pages/Landing";
-import { PasswordForget } from "../pages/PasswordForget";
-import { SignIn } from "../pages/SignIn";
-import { SignUp } from "../pages/SignUp";
-import * as routes from "./routes";
+import { withAuthentication } from "../components/AuthContext/withAuthentication";
+import { ROUTES } from "./routes";
+import { GlobalStyle } from "./GlobalStyle";
 
 class AppComponent extends React.Component {
   constructor(props: any) {
@@ -31,22 +26,14 @@ class AppComponent extends React.Component {
   public render() {
     return (
       <BrowserRouter>
-        <div>
-          <Navigation />
-          <hr />
+        <Layout>
+          <GlobalStyle />
           <Switch>
-            <Route exact={true} path={routes.LANDING} component={Landing} />
-            <Route exact={true} path={routes.SIGN_UP} component={SignUp} />
-            <Route exact={true} path={routes.SIGN_IN} component={SignIn} />
-            <Route
-              exact={true}
-              path={routes.PASSWORD_FORGET}
-              component={PasswordForget}
-            />
-            <Route exact={true} path={routes.HOME} component={Home} />
-            <Route exact={true} path={routes.ACCOUNT} component={Account} />
+            {ROUTES.map(({ path, Component }) => (
+              <Route exact={true} path={path} component={Component} />
+            ))}
           </Switch>
-        </div>
+        </Layout>
       </BrowserRouter>
     );
   }

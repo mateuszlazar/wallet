@@ -1,6 +1,18 @@
-export const SIGN_UP = "/signup";
-export const SIGN_IN = "/signin";
-export const LANDING = "/";
-export const HOME = "/home";
-export const ACCOUNT = "/account";
-export const PASSWORD_FORGET = "/password_forget";
+import { Home, AccountCircle, Dashboard } from "@material-ui/icons";
+import { HomePage, AccountPage, DashboardPage } from "src/pages";
+
+export const ROUTES = [
+  { name: "Home", path: "/", Component: HomePage, Icon: Home },
+  {
+    name: "Account",
+    path: "/account",
+    Component: AccountPage,
+    Icon: AccountCircle,
+  },
+  {
+    name: "Dashboard",
+    path: "/dashboard",
+    Component: DashboardPage,
+    Icon: Dashboard,
+  },
+];

@@ -1,64 +1,32 @@
 import * as React from "react";
-import {
-  Button,
-  Container,
-  Select,
-  MenuItem,
-  TextField,
-} from "@material-ui/core";
-import { withAuthorization } from "../../firebase/withAuthorization";
-import { search } from "../../services/stock";
-import { Autocomplete } from "@material-ui/lab";
-import Asynchronous from "./Search";
+import { Redirect } from "react-router-dom";
+import { Button, Typography } from "@material-ui/core";
+import { loginWithGoogle } from "src/firebase/auth";
+import { AuthContext } from "src/components/AuthContext";
+import { GoogleIcon } from "./GoogleIcon";
+import { HomeContainer } from "./styled";
 
-const HomeComponent: React.FC<any> = () => {
-  const [value, setValue] = React.useState("");
-  const [options, setOptions] = React.useState<any[]>([]);
-
-  const fetchData = async () => {
-    const { data } = await search(value);
-
-    setOptions(data.bestMatches);
-  };
-
-  return (
-    <Container maxWidth={"lg"}>
-      <Asynchronous />
-      ___
-      <Button variant={"contained"} color="primary" onClick={fetchData}>
-        Default
-      </Button>
-      <TextField id="standard-basic" label="Standard" />
-      <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        // value={age}
-        // @ts-ignore
-        onChange={console.log}
-      >
-        {options.map((option: any) => (
-          <MenuItem value={option["1. symbol"]}>{option["2. name"]}</MenuItem>
-        ))}
-      </Select>
-      <Autocomplete
-        id="combo-box-demo"
-        options={options}
-        getOptionLabel={(option) =>
-          `${option["2. name"]} (${option["1. symbol"]})}`
-        }
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label="Combo box"
+const Home = () => (
+  <AuthContext.Consumer>
+    {(user) =>
+      user ? (
+        <Redirect to="/dashboard" />
+      ) : (
+        <HomeContainer>
+          <Typography variant="h2">Wallet</Typography>
+          <Button
             variant="outlined"
-            onChange={(e) => setValue(e.target.value)}
-          />
-        )}
-      />
-    </Container>
-  );
-};
+            size="medium"
+            color="primary"
+            onClick={loginWithGoogle}
+          >
+            <GoogleIcon />
+            &nbsp;&nbsp; Sign in
+          </Button>
+        </HomeContainer>
+      )
+    }
+  </AuthContext.Consumer>
+);
 
-const authCondition = (authUser: any) => !!authUser;
-
-export const Home = withAuthorization(authCondition)(HomeComponent);
+export default Home;
