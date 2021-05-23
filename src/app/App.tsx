@@ -3,8 +3,14 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Layout } from "src/components/Layout";
 import { firebase } from "../firebase";
 import { withAuthentication } from "../components/AuthContext/withAuthentication";
-import { ROUTES } from "./routes";
-import { GlobalStyle } from "./GlobalStyle";
+import {
+  HomePage,
+  AccountPage,
+  PortfolioList,
+  Portfolio,
+  DashboardPage,
+} from "src/pages";
+import "./index.css";
 
 class AppComponent extends React.Component {
   constructor(props: any) {
@@ -27,11 +33,12 @@ class AppComponent extends React.Component {
     return (
       <BrowserRouter>
         <Layout>
-          <GlobalStyle />
           <Switch>
-            {ROUTES.map(({ path, Component }) => (
-              <Route exact={true} path={path} component={Component} />
-            ))}
+            <Route path={"/"} component={HomePage} exact />
+            <Route path={"/dashboard"} component={DashboardPage} exact />
+            <Route path={"/portfolio"} component={PortfolioList} exact />
+            <Route path={"/portfolio/:id"} component={Portfolio} />
+            <Route path={"/account"} component={AccountPage} exact />
           </Switch>
         </Layout>
       </BrowserRouter>

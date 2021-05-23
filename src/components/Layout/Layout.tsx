@@ -1,20 +1,20 @@
 import * as React from "react";
 import { withRouter } from "react-router-dom";
-import { SLayoutContainer, SToolbar } from "./styled";
+import { SLayoutContainer, SToolbar, SMain } from "./styled";
 import { Navbar } from "./Navbar";
 import { Sidebar } from "./Sidebar";
 
-const Layout: React.FC<any> = ({ children, location }) => {
+const Layout: React.FC<any> = ({ location, children }) => {
   const useAppLayout = location.pathname !== "/";
 
   return useAppLayout ? (
     <SLayoutContainer>
       <Navbar />
       <Sidebar />
-      <main>
+      <SMain maxWidth={"lg"}>
         <SToolbar />
         {children}
-      </main>
+      </SMain>
     </SLayoutContainer>
   ) : (
     children

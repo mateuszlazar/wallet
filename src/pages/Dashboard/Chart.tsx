@@ -1,6 +1,5 @@
 import { Container } from "@material-ui/core";
 import * as React from "react";
-import { db } from "../../firebase";
 import { UserList } from "./UserList";
 import {
   AreaChart,
@@ -63,12 +62,6 @@ class HomeComponent extends React.Component {
     this.state = {
       users: null,
     };
-  }
-
-  public componentDidMount() {
-    db.onceGetUsers().then((snapshot) =>
-      this.setState(() => ({ users: snapshot.val() }))
-    );
   }
 
   public render() {

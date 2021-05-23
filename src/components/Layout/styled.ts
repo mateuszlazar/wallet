@@ -1,6 +1,7 @@
 import { styled } from "@material-ui/core/styles";
 import {
   AppBar,
+  Container,
   Drawer,
   Toolbar,
   Typography,
@@ -12,6 +13,10 @@ const drawerWidth = 240;
 
 export const SLayoutContainer = styled("div")({
   display: "flex",
+});
+
+export const SMain = styled(Container)({
+  width: "100%",
 });
 
 export const SToolbar = styled(Toolbar)({});
