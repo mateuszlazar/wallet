@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Redirect } from "react-router-dom";
-import { Button, Typography } from "@material-ui/core";
+import { Button, Typography } from "antd";
 import { loginWithGoogle } from "src/firebase/auth";
 import { AuthContext } from "src/components/AuthContext";
 import { GoogleIcon } from "./GoogleIcon";
@@ -13,13 +13,8 @@ const Home = () => (
         <Redirect to="/dashboard" />
       ) : (
         <HomeContainer>
-          <Typography variant="h2">Wallet</Typography>
-          <Button
-            variant="outlined"
-            size="medium"
-            color="primary"
-            onClick={loginWithGoogle}
-          >
+          <Typography>Wallet</Typography>
+          <Button onClick={loginWithGoogle}>
             <GoogleIcon />
             &nbsp;&nbsp; Sign in
           </Button>

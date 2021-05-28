@@ -1,6 +1,4 @@
-import { Container } from "@material-ui/core";
 import * as React from "react";
-import { UserList } from "./UserList";
 import {
   AreaChart,
   Area,
@@ -8,6 +6,7 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
+  ResponsiveContainer,
 } from "recharts";
 
 const data = [
@@ -55,7 +54,7 @@ const data = [
   },
 ];
 
-class HomeComponent extends React.Component {
+class Chart extends React.Component {
   constructor(props: any) {
     super(props);
 
@@ -68,10 +67,8 @@ class HomeComponent extends React.Component {
     const { users }: any = this.state;
 
     return (
-      <Container maxWidth={"lg"}>
+      <ResponsiveContainer width={"100%"} aspect={3}>
         <AreaChart
-          width={500}
-          height={1000}
           data={data}
           margin={{
             top: 10,
@@ -106,11 +103,9 @@ class HomeComponent extends React.Component {
             fill="#ffc658"
           />
         </AreaChart>
-
-        {!!users && <UserList users={users} />}
-      </Container>
+      </ResponsiveContainer>
     );
   }
 }
 
-export default HomeComponent;
+export default Chart;
